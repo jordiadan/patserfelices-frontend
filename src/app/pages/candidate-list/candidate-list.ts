@@ -44,7 +44,7 @@ export class CandidateListPage {
   }
 
   loadEmbeds() {
-    let win = <any>window;
+    const win = <any>window;
     if (win.instgrm && win.instgrm.Embeds) {
       win.instgrm.Embeds.process();
     }

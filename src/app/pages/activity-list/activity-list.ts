@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {ConferenceData} from '../../providers/conference-data';
@@ -12,7 +12,7 @@ import {UserData} from '../../providers/user-data';
   templateUrl: 'activity-list.html',
   styleUrls: ['./activity-list.scss'],
 })
-export class ActivityListPage {
+export class ActivityListPage implements OnInit {
   activities: any[] = [];
   post: PostOptions = { username: '', description: '', createdAt: null, likes: null, name: '', profilePicture: '', firstSurname: ''};
   newPost: PostOptions;
@@ -66,7 +66,7 @@ export class ActivityListPage {
       this.post.likes = 0;
 
       this.confData.postPost(this.post);
-      let copy = Object.assign({}, this.post );
+      const copy = Object.assign({}, this.post );
       this.activities.unshift(copy);
 
       console.log(this.post);

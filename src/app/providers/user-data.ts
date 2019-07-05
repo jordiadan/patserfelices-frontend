@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Events} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
-import {ConferenceData} from './conference-data';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {RequestOptions} from '@angular/http';
-import {environment} from '../../environments/environment';
+import * as core from '@angular/core';
+import { Events } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { ConferenceData } from './conference-data';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { RequestOptions } from '@angular/http';
+import { environment } from '../../environments/environment';
 
 
 
-@Injectable({
+@core.Injectable({
   providedIn: 'root'
 })
 export class UserData {
@@ -40,16 +40,14 @@ export class UserData {
     }
   }
 
-  async login(username: string): Promise<any> {
 
-    console.log('antes');
-    await this.getUserLogin(username);
-
-    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
-      this.setUser(this.user);
-      // this.setUsername(username);
-      // this.setProfilePicture(this.user.profilePicture);
-      return this.events.publish('user:login');
+  login(username: string): Promise<any> {
+    return this.getSelf(username).then(user => {
+      return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
+        console.log(user);
+        this.setUser(user);
+        return this.events.publish('user:login');
+      });
     });
   }
 
@@ -88,7 +86,6 @@ export class UserData {
     });
   }
 
-
   setProfilePicture(profilePicture: string): Promise<string> {
     return this.storage.set('profilePicture', profilePicture);
   }
@@ -111,22 +108,14 @@ export class UserData {
     });
   }
 
-  // Private methods
-
-  private async getUserLogin(username: string) {
-    this.getSelf(username).subscribe(data => {
-      this.user = data;
-      console.log(data);
-      console.log('después');
-    }, (error => {
-      console.log(error);
-    }));
-  }
-
   // HTTP Calls
 
-  private getSelf(username: string) {
-    return this.http.get(`${environment.serverURL}/users/${username}`);
+  getSelf(username: string) {
+    return new Promise(resolve => {
+      this.http.get(`${environment.serverURL}/users/${username}`).subscribe(user => {
+        console.log(user);
+        resolve(user);
+      });
+    });
   }
-
 }
