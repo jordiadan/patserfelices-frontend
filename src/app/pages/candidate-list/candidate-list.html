@@ -1,0 +1,21 @@
+<ion-header>
+  <script async="" defer="defer" src="//platform.instagram.com/en_US/embeds.js"></script>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Concurso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-content">
+  <ion-list align-items-center *ngFor="let candidate of candidates">
+    <div align="center" [innerHTML]=candidate.html></div>
+  </ion-list>
+
+  <!--<div margin-top="8px" align="center">-->
+  <!--<div [innerHTML]=candidates[0].html></div>-->
+  <!--</div>-->
+
+</ion-content>

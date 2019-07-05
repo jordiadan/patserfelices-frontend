@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Publicaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-content">
+
+  <ion-refresher (ionRefresh)="refreshData($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngFor="let activity of activities">
+
+    <ion-card lines="none" routerLink="/app/tabs/activities/activity-details/{{activity.id}}">
+
+      <ion-card-header>
+        <ion-item lines="none" text-wrap no-padding>
+          <ion-avatar>
+            <img [src]="activity.profilePicture" alt="">
+          </ion-avatar>
+          <ion-label padding-start>
+            <p style="font-weight: bold">{{activity.username}}</p>
+            <p>{{activity.createdAt}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>{{activity.description}}</p>
+        <img margin-top src="{{activity.photo}}">
+      </ion-card-content>
+
+      <ion-row>
+        <ion-button fill="clear">
+          {{activity.likes}}
+          <ion-icon class="card-icon" name="heart"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear">
+          2
+          <ion-icon class="card-icon" name="chatbubbles"></ion-icon>
+        </ion-button>
+      </ion-row>
+    </ion-card>
+
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <form #postForm="ngForm" (ngSubmit)="sendPost(postForm)" novalidate>
+    <ion-item lines="none">
+      <ion-input name="text" #text placeholder="En qué estás pensando..." [(ngModel)]="post.description"></ion-input>
+      <ion-button fill="clear" type="submit" icon-only item-right >
+        <ion-icon name="camera"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" type="submit" icon-only item-right >
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </form>
+</ion-footer>

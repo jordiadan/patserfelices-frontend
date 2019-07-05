@@ -1,0 +1,35 @@
+.scroll {
+  background: #ededed;
+}
+
+ion-card-header {
+  //padding-top: 0;
+  padding-bottom: 0;
+}
+
+ion-card-content {
+  //padding-top: 0;
+  padding-bottom: 0;
+  display: block;
+}
+
+ion-button{
+  text-transform: inherit;
+}
+
+//ion-icon {
+//  margin-left: 8px;
+//  margin-right: 8px;
+//}
+
+ion-list {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.card-icon {
+  margin-right: 0.35rem;
+  margin-left: 0.35rem;
+}

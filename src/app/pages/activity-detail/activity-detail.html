@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/app/tabs/activities"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card lines="none">
+
+    <ion-card-header>
+      <ion-item lines="none" text-wrap no-padding>
+        <ion-avatar>
+          <img *ngIf="activity?.profile_pic" [src]="activity?.profile_pic" alt="">
+        </ion-avatar>
+        <ion-label padding-start>
+          <p style="font-weight: bold">{{activity?.username}}</p>
+          <p>{{activity?.created_at}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>{{activity?.description}}</p>
+      <img margin-top *ngIf="activity?.photo" src="{{activity?.photo}}">
+    </ion-card-content>
+
+    <ion-row>
+      <ion-button fill="clear">
+        {{activity.likes}}
+        <ion-icon class="card-icon" name="heart" (click)="likePost()"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        2
+        <ion-icon class="card-icon" name="chatbubbles"></ion-icon>
+      </ion-button>
+    </ion-row>
+
+  </ion-card>
+
+  <ion-list *ngFor="let comment of activity?.comments">
+    <ion-item>
+      <div>
+        <ion-item lines="none" text-wrap>
+          <ion-avatar >
+            <img *ngIf="comment?.profile_pic" [src]="comment?.profile_pic" alt="">
+          </ion-avatar>
+          <ion-label padding-start>
+            <p style="font-weight: bold">{{comment.username}}</p>
+            <p>{{comment.created_at}}</p>
+          </ion-label>
+        </ion-item>
+
+        <p padding-start>{{comment.text}}</p>
+
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)" novalidate>
+    <ion-item lines="none">
+      <ion-input name="text" #text placeholder="Escribe un comentario..." [(ngModel)]="comment.text"></ion-input>
+      <ion-button fill="clear" type="submit" icon-only item-right >
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </form>
+</ion-footer>
