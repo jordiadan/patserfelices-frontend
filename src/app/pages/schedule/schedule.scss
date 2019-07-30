@@ -1,14 +1,18 @@
 $categories: (
   ionic: var(--ion-color-primary),
   angular: #ac282b,
+  cóctel: #ac282b,
   communication: #8e8d93,
   tooling: #fe4c52,
   services: #fd8b2d,
   design: #fed035,
+  ceremonia: #fed035,
   workshop: #69bb7b,
   food: #3bc7c4,
+  comida: #3bc7c4,
   documentation: #b16be3,
-  navigation: #6600cc
+  navigation: #6600cc,
+  fiesta: #6600cc
 );
 
 @each $track, $value in map-remove($categories) {

@@ -5,6 +5,7 @@ import { ActivityDetailPage } from './activity-detail';
 import { ActivityDetailPageRoutingModule } from './activity-detail-routing.module';
 import { IonicModule } from '@ionic/angular';
 import {FormsModule} from '@angular/forms';
+import { PopoverPage } from '../activity-popover/activity-popover';
 
 @NgModule({
   imports: [
@@ -15,6 +16,8 @@ import {FormsModule} from '@angular/forms';
   ],
   declarations: [
     ActivityDetailPage,
-  ]
+    PopoverPage
+  ],
+  entryComponents: [PopoverPage],
 })
 export class ActivityDetailModule { }

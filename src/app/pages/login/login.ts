@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
     console.log(form);
 
     const loading = await this.loadingCtrl.create({
-      spinner: 'bubbles',
+      // spinner: 'bubbles',
       message: 'Iniciando sesión...'
     });
 

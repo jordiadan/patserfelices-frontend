@@ -1,7 +1,7 @@
 <ion-header no-border>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button color='primary' (click)="startApp()" [hidden]="!showSkip">Skip</ion-button>
+      <ion-button color='primary' (click)="startApp()" [hidden]="!showSkip">Saltar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,37 +11,51 @@
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-1.png" class="slide-image" />
       <h2 class="slide-title">
-        Welcome to
-        <b>ICA</b>
+        ¡Bienvenido a
+        <b>PatSerFelices</b>!
       </h2>
       <p>
-        The
-        <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code
-        use.
+        La aplicación oficial del evento que se realizará el 9 de Setiembre de 2019 en Valencia.
       </p>
+      <!-- <p>
+        En las siguientes diapositivas se detallan las principales funcionalidades de la aplicación.
+      </p> -->
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-2.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic?</h2>
+      <h2 class="slide-title">Horario</h2>
       <p>
-        <b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies
-        like HTML, CSS, and JavaScript.</p>
+        La pestaña de <b>Horario</b> permite consultar la programación de las actividades del evento.</p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic Pro?</h2>
+      <h2 class="slide-title">Publicaciones</h2>
       <p>
-        <b>Ionic Pro</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new
-        level of app development agility to mobile dev teams.</p>
+        La pestaña <b>Publicaciones</b> integra una red social propia dónde los invitados podrán publicar y comentar
+        fotos durante el evento.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
+      <h2 class="slide-title">Concurso</h2>
+      <p>
+        La pestaña <b>Concurso</b> da la posibilidad de poder ver las fotos de los candidatos del concurso.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
+      <h2 class="slide-title">Mapa</h2>
+      <p>
+        La pestaña <b>Mapa</b> muestra la localización del evento.</p>
     </ion-slide>
 
     <ion-slide>
       <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
-      <h2 class="slide-title">Ready to Play?</h2>
+      <h2 class="slide-title">¿Estás listo?</h2>
       <ion-button fill="clear" (click)="startApp()">
-        Continue
+        Continuar
         <ion-icon slot="end" name="arrow-forward"></ion-icon>
       </ion-button>
     </ion-slide>

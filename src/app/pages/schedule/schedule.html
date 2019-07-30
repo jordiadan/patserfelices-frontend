@@ -6,10 +6,10 @@
 
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
       <ion-segment-button value="all">
-        All
+        Todos
       </ion-segment-button>
       <ion-segment-button value="favorites">
-        Favorites
+        Favoritos
       </ion-segment-button>
     </ion-segment>
 
@@ -44,10 +44,10 @@
         </ion-item>
         <ion-item-options>
           <ion-item-option color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
+            Favorito
           </ion-item-option>
           <ion-item-option color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-            Remove
+            Eliminar
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
@@ -55,10 +55,10 @@
   </ion-list>
 
   <ion-list-header [hidden]="shownSessions > 0">
-    No Sessions Found
+    No se han encontrado eventos
   </ion-list-header>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+  <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
     <ion-fab-button><ion-icon name="share"></ion-icon></ion-fab-button>
     <ion-fab-list side="top">
       <ion-fab-button color="vimeo" (click)="openSocial('Vimeo', fab)">
@@ -74,5 +74,5 @@
         <ion-icon name="logo-facebook"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>

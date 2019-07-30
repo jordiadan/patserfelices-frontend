@@ -4,8 +4,10 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
-  serverURL: 'http://localhost:8080',
-  whitelistedDomains: ['localhost:8080']
+  // serverURL: 'http://localhost:8080',
+  // whitelistedDomains: ['localhost:8080']
+  serverURL: 'http://192.168.1.132:8080',
+  whitelistedDomains: ['192.168.1.132:8080']
   // serverURL: 'http://60a0e766.ngrok.io',
   // whitelistedDomains: ['60a0e766.ngrok.io']
 };

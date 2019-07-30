@@ -1,10 +1,11 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import {UserData} from './user-data';
-import {environment} from '../../environments/environment';
+import { UserData } from './user-data';
+import { environment } from '../../environments/environment';
+import { PhotoOptions } from '../interfaces/photo-options';
 
 @Injectable({
   providedIn: 'root'
@@ -162,14 +163,45 @@ export class ConferenceData {
   // }
 
   getActivities() {
-    return this.http.get(`${environment.serverURL}/posts`);
+    console.log('entra');
+    return new Promise((resolve) => {
+      this.load().subscribe( _ => {
+        this.http.get(`${environment.serverURL}/posts`).subscribe(
+          activities => {
+            this.data.activities = activities;
+            console.log(this.data);
+            resolve(this.data.activities);
+          });
+      });
+    })
+
+    // return this.http.get(`${environment.serverURL}/posts`);
   }
 
   postPost(post: any) {
-    this.http.post(`${environment.serverURL}/posts`, post).subscribe(() => {}, (error => {console.log(error); }));
+    return this.http.post(`${environment.serverURL}/posts`, post);
+  }
+
+  uploadFile(formData: FormData) {
+    console.log('Trying to upload file...');
+    // const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const headers = {
+      'enctype': 'multipart/form-data; boundary=WebAppBoundary',
+      'Content-Type': 'multipart/form-data; boundary=WebAppBoundary'
+    };
+
+    this.http.post(`${environment.serverURL}/files`, formData, { headers: headers }).subscribe(() => { }, (error => { console.log(error); }));
+  }
+
+
+  getPhotos() {
+    this.http.get(`${environment.serverURL}/candidates`).subscribe((photos: any[]) => {
+          console.log(photos);
+    });
   }
 
   getCandidates() {
+    this.getPhotos();
     return this.load().pipe(
       map((data: any) => {
         return data.candidates.sort((a: any, b: any) => {

@@ -12,13 +12,13 @@ import {
   Router
 } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router, public toastController: ToastController) {}
+  constructor(private router: Router, public toastController: ToastController) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -32,17 +32,23 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
 
-    if (!request.headers.has('Content-Type')) {
-      request = request.clone({
-        setHeaders: {
-          'content-type': 'application/json'
-        }
-      });
+    // if (request.method === 'POST' && request.url.includes('/files')) {
+    //   return next.handle(request);
+    // }
+
+    if (request.method !== 'POST'/*  && !(request.url.includes('/files')) */) {
+      if (!request.headers.has('Content-Type')) {
+        request = request.clone({
+          setHeaders: {
+            'content-type': 'application/json'
+          }
+        });
+      }
     }
 
-    request = request.clone({
-      headers: request.headers.set('Accept', 'application/json')
-    });
+    // request = request.clone({
+    //   headers: request.headers.set('Accept', 'application/json')
+    // });
 
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
@@ -58,7 +64,7 @@ export class TokenInterceptor implements HttpInterceptor {
           // if (error.error.success === false) {
           //   this.presentToast('Login failed');
           // } else {
-            this.router.navigate(['login']);
+          this.router.navigate(['login']);
           // }
         }
         return throwError(error);

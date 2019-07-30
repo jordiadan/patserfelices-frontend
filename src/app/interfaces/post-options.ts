@@ -4,6 +4,9 @@ export interface PostOptions {
   firstSurname: string;
   createdAt: number;
   profilePicture: string;
-  likes: number;
+  likes: string [];
   description: string;
+  photo: string;
+  blob: any;
+  numberOfComments: number;
 }

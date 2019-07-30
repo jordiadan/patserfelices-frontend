@@ -2,6 +2,12 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/app/tabs/activities"></ion-back-button>
+
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="popover" icon-only item-right fill="clear" (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,49 +19,50 @@
     <ion-card-header>
       <ion-item lines="none" text-wrap no-padding>
         <ion-avatar>
-          <img *ngIf="activity?.profile_pic" [src]="activity?.profile_pic" alt="">
+          <img [src]="activity?.profilePicture" alt="">
         </ion-avatar>
         <ion-label padding-start>
-          <p style="font-weight: bold">{{activity?.username}}</p>
-          <p>{{activity?.created_at}}</p>
+          <p style="font-weight: bold">{{activity.name}} {{activity?.firstSurname}}</p>
+          <p>{{activity?.createdAt | date: 'dd/MM/yyyy H:mm'}}</p>
         </ion-label>
       </ion-item>
     </ion-card-header>
 
     <ion-card-content>
       <p>{{activity?.description}}</p>
-      <img margin-top *ngIf="activity?.photo" src="{{activity?.photo}}">
+      <img margin-top *ngIf="activity?.blob" [src]="activity.blob">
     </ion-card-content>
 
     <ion-row>
-      <ion-button fill="clear">
-        {{activity.likes}}
-        <ion-icon class="card-icon" name="heart" (click)="likePost()"></ion-icon>
+      <ion-button fill="clear" (click)="likePost()">
+        <ion-text [color]="liked ? 'danger' : 'primary'">{{activity?.likes?.length}}</ion-text>
+        <ion-icon [color]="liked ? 'danger' : 'primary'" class="card-icon" name="heart"></ion-icon>
       </ion-button>
       <ion-button fill="clear">
-        2
+        <ion-text>{{comments?.length}}</ion-text>
         <ion-icon class="card-icon" name="chatbubbles"></ion-icon>
       </ion-button>
     </ion-row>
 
   </ion-card>
 
-  <ion-list *ngFor="let comment of activity?.comments">
-    <ion-item>
+  <ion-list *ngFor="let comment of comments">
+    <ion-item padding-end>
       <div>
         <ion-item lines="none" text-wrap>
-          <ion-avatar >
-            <img *ngIf="comment?.profile_pic" [src]="comment?.profile_pic" alt="">
+          <ion-avatar>
+            <img *ngIf="comment?.profilePicture" [src]="comment?.profilePicture" alt="">
           </ion-avatar>
           <ion-label padding-start>
-            <p style="font-weight: bold">{{comment.username}}</p>
-            <p>{{comment.created_at}}</p>
+            <p style="font-weight: bold">{{activity.name}} {{activity?.firstSurname}}</p>
+            <p>{{comment?.createdAt | date: 'dd/MM/yyyy H:mm'}}</p>
           </ion-label>
         </ion-item>
-
-        <p padding-start>{{comment.text}}</p>
-
+        <p padding-start>{{comment?.text}}</p>
       </div>
+      <ion-button *ngIf="comment.canDelete" (click)="deleteComment(comment.id)" fill="clear" color="danger" class="delete-button" icon-only item-end>
+        <ion-icon  name="close"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>
@@ -64,7 +71,7 @@
   <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)" novalidate>
     <ion-item lines="none">
       <ion-input name="text" #text placeholder="Escribe un comentario..." [(ngModel)]="comment.text"></ion-input>
-      <ion-button fill="clear" type="submit" icon-only item-right >
+      <ion-button fill="clear" type="submit" icon-only item-right>
         <ion-icon name="send"></ion-icon>
       </ion-button>
     </ion-item>

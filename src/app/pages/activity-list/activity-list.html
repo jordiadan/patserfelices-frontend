@@ -14,49 +14,56 @@
   </ion-refresher>
 
   <ion-list *ngFor="let activity of activities">
+    <ion-item-sliding #item>
+      <!-- <ion-item-options side="end"> -->
 
-    <ion-card lines="none" routerLink="/app/tabs/activities/activity-details/{{activity.id}}">
+      <ion-card lines="none" routerLink="/app/tabs/activities/activity-details/{{activity.id}}"
+        (longPress)="presentActionSheet()">
 
-      <ion-card-header>
-        <ion-item lines="none" text-wrap no-padding>
-          <ion-avatar>
-            <img [src]="activity.profilePicture" alt="">
-          </ion-avatar>
-          <ion-label padding-start>
-            <p style="font-weight: bold">{{activity.username}}</p>
-            <p>{{activity.createdAt}}</p>
-          </ion-label>
-        </ion-item>
-      </ion-card-header>
+        <ion-card-header>
+          <ion-item lines="none" text-wrap no-padding>
+            <ion-avatar>
+              <img *ngIf="activity.profilePicture" [src]="activity.profilePicture" alt="">
+            </ion-avatar>
+            <ion-label padding-start>
+              <p style="font-weight: bold">{{activity.name}} {{activity?.firstSurname}}</p>
+              <p>{{activity.createdAt | date: 'dd/MM/yyyy H:mm' }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-card-header>
 
-      <ion-card-content>
-        <p>{{activity.description}}</p>
-        <img margin-top src="{{activity.photo}}">
-      </ion-card-content>
+        <ion-card-content>
+          <p>{{activity.description}}</p>
+          <img margin-top *ngIf="activity.blob" [src]="activity.blob">
+        </ion-card-content>
 
-      <ion-row>
-        <ion-button fill="clear">
-          {{activity.likes}}
-          <ion-icon class="card-icon" name="heart"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear">
-          2
-          <ion-icon class="card-icon" name="chatbubbles"></ion-icon>
-        </ion-button>
-      </ion-row>
-    </ion-card>
-
+        <ion-row>
+          <ion-button fill="clear" (click)="likePost($event, activity)">
+              <ion-text [color]="activity.liked ? 'danger' : 'primary'">{{activity?.likes?.length}}</ion-text>
+              <ion-icon [color]="activity.liked ? 'danger' : 'primary'" class="card-icon" name="heart"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear">
+              <ion-text>{{activity.numberOfComments}}</ion-text>
+              <ion-icon class="card-icon" name="chatbubbles"></ion-icon>
+            </ion-button>
+        </ion-row>
+      </ion-card>
+      <!-- </ion-item-options> -->
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
 
 <ion-footer>
-  <form #postForm="ngForm" (ngSubmit)="sendPost(postForm)" novalidate>
+  <form #postForm="ngForm" (ngSubmit)="submit(postForm)" novalidate>
     <ion-item lines="none">
       <ion-input name="text" #text placeholder="En qué estás pensando..." [(ngModel)]="post.description"></ion-input>
-      <ion-button fill="clear" type="submit" icon-only item-right >
+      <!-- <ion-label>
+        <img *ngIf="myPhoto" [src]="myPhoto"/>
+      </ion-label> -->
+      <ion-button fill="clear" icon-only item-right (click)="takePhoto()">
         <ion-icon name="camera"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" type="submit" icon-only item-right >
+      <ion-button fill="clear" type="submit" icon-only item-right>
         <ion-icon name="send"></ion-icon>
       </ion-button>
     </ion-item>
